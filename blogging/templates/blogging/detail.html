@@ -1,0 +1,9 @@
+{# blogging/templates/blogging/detail.html #}
+
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ post.title }}</h1>
+<div class="post-body">
+    {{ post.text }}
+</div>
+{% endblock %}
