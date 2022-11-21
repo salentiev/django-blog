@@ -5,11 +5,11 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import loader
 
 def detail_view(request, post_id):
+    published = Post.objects.exclude(published_date__exact=None)
     try:
-        post = Post.objects.get(pk=post_id)
-    except Poll.DoesNotExist:
+        post = published.get(pk=post_id)
+    except Post.DoesNotExist:
         raise Http404
-
     context = {'post': post}
     return render(request, 'blogging/detail.html', context)
 
