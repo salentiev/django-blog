@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,16 +7,20 @@
 	<link type="text/css" rel="stylesheet" href="{% static 'django_blog.css' %}">
   </head>
   <body>
-   <div id="header">  {# header begins here #}
-    <ul id="control-bar">
-    {% if user.is_authenticated %}
-     {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">admin</a></li>{% endif %}
-      <li><a href="{% url 'logout' %}">logout</a></li>
-     {% else %}
-      <li><a href="{% url 'login' %}">login</a></li>
-    {% endif %}
-    </ul>
-   </div>              {# header ends here #}
+    <div id="header">  {# header begins here #}
+      <ul id="control-bar">
+      {% if user.is_authenticated %}
+        <li>Hello {{ user.username }} </li>
+        {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">admin</a></li>{% endif %}
+          <li><a href="{% url 'logout' %}">logout</a></li>
+        {% else %}
+          <li><a href="{% url 'account_login' %}">login</a></li>
+      {% endif %}
+      </ul>
+     </div>              {# header ends here #}    
+
+	{% if user.is_authenticated %}     
+	
     <div id="container">
       <div id="content">
       {% block content %}
@@ -23,5 +28,12 @@
       {% endblock %}
       </div>
     </div>
+    
+	{% else %}
+
+	<a href="{% provider_login_url 'github' %}">Sign Up with Github</a>
+	
+	{% endif %}    
+    
   </body>
 </html>
