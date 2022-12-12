@@ -18,8 +18,7 @@
       {% endif %}
       </ul>
      </div>              {# header ends here #}    
-
-	{% if user.is_authenticated %}     
+ 
 	
     <div id="container">
       <div id="content">
@@ -29,7 +28,7 @@
       </div>
     </div>
     
-	{% else %}
+	{% if not user.is_authenticated %}    
 
 	<a href="{% provider_login_url 'github' %}">Sign Up with Github</a>
 	
